@@ -1,0 +1,21 @@
+{
+  "name": "one-piece-world-mmo",
+  "version": "2.0.0",
+  "description": "MilesDePiratas: simulador de mundo pirata convertido en MMORPG multijugador persistente (Node.js + Colyseus + SQLite)",
+  "private": true,
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test:two-clients": "node tests/two-clients.js"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "@colyseus/schema": "2.0.35",
+    "@colyseus/ws-transport": "0.15.3",
+    "colyseus": "0.15.57",
+    "colyseus.js": "0.15.26",
+    "express": "4.21.2"
+  }
+}
