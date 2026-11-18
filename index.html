@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Zyron Hub</title>
+<meta name="description" content="The Zyron Hub: elige tu juego y empieza a jugar.">
+<meta name="theme-color" content="#0a0903">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0903'/%3E%3Cpath d='M8 8h16v4L14 20h10v4H8v-4l10-8H8z' fill='%23ffd400'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Orbitron:wght@800&family=Pirata+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --zyron: #ffd400; --zyron-soft: #ffe566; --zyron-deep: #c79a00;
+    --bg: #0a0903; --card: #15130a; --edge: rgba(255, 212, 0, 0.16); --text: #f6f2e2; --muted: #aaa48c; --ink: #171300;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0; min-height: 100vh; display: flex; color: var(--text); font-family: 'Inter', system-ui, sans-serif;
+    background:
+      radial-gradient(900px 480px at 50% -8%, rgba(255, 212, 0, 0.20), transparent 68%),
+      radial-gradient(700px 420px at 100% 100%, rgba(255, 212, 0, 0.07), transparent 65%),
+      radial-gradient(700px 420px at 0 100%, rgba(255, 212, 0, 0.07), transparent 65%),
+      var(--bg);
+  }
+  /* rejilla amarilla de fondo */
+  body::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none; opacity: 0.5;
+    background-image: linear-gradient(rgba(255, 212, 0, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 212, 0, 0.05) 1px, transparent 1px);
+    background-size: 44px 44px; -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%); mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+  }
+  /* franja amarilla superior */
+  body::after { content: ''; position: fixed; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, transparent, var(--zyron), transparent); box-shadow: 0 0 18px var(--zyron); }
+
+  .wrap { position: relative; width: 100%; max-width: 1180px; margin: 0 auto; padding: 44px 16px 24px; display: flex; flex-direction: column; }
+  header { text-align: center; margin-bottom: 36px; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--edge); background: rgba(255, 212, 0, 0.06); color: var(--zyron-soft); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+  .badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--zyron); box-shadow: 0 0 10px var(--zyron); animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: 0.35; } }
+  h1 { font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: clamp(34px, 7vw, 68px); letter-spacing: 2px; margin: 16px 0 8px; line-height: 1.08; color: var(--zyron);
+    background: linear-gradient(180deg, #fff6c2 8%, var(--zyron) 52%, var(--zyron-deep) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 22px rgba(255, 212, 0, 0.38)); }
+  .sub { color: var(--muted); font-size: 16px; margin: 0; }
+
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  @media (max-width: 1060px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+
+  .card { position: relative; display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; background: var(--card); border: 1px solid var(--edge); box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+    color: inherit; text-decoration: none; transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease; }
+  .card:hover, .card:focus-visible { transform: translateY(-6px); border-color: var(--zyron); box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), 0 0 30px rgba(255, 212, 0, 0.32); outline: none; }
+
+  .art { position: relative; aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center; overflow: hidden;
+    background: radial-gradient(circle at 50% 125%, rgba(255, 212, 0, 0.42), transparent 66%), linear-gradient(160deg, #211c08, #0d0b04); }
+  .icon { position: relative; font-size: 62px; filter: drop-shadow(0 0 16px rgba(255, 212, 0, 0.55)); transition: transform 0.3s ease; }
+  .card:hover .icon { transform: scale(1.12) rotate(-4deg); }
+  /* MilesDePiratas: atardecer dorado sobre el mar */
+  .art.pirate { background: linear-gradient(180deg, #ffd400 0%, #ff9d1e 34%, #6a3410 62%, #1a1206 100%); }
+  .sun { position: absolute; top: 20%; left: 50%; width: 88px; height: 88px; margin-left: -44px; border-radius: 50%; background: radial-gradient(circle, #fffbe0, #ffe566 58%, transparent 71%); }
+  .sea { position: absolute; inset: auto 0 0; height: 38%; background: linear-gradient(180deg, #4a3208, #140e03); border-top: 2px solid rgba(255, 229, 102, 0.6); }
+
+  .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { font-size: 11px; font-weight: 800; letter-spacing: 0.6px; padding: 3px 8px; border-radius: 6px; color: var(--zyron); background: rgba(255, 212, 0, 0.1); border: 1px solid rgba(255, 212, 0, 0.3); text-transform: uppercase; }
+  h2 { margin: 2px 0 0; font-size: 22px; font-weight: 800; }
+  .pirate-name { font-family: 'Pirata One', Georgia, serif; font-size: 30px; font-weight: 400; letter-spacing: 1px; }
+  .desc { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0; flex: 1; }
+  .btn { margin-top: 6px; padding: 11px 14px; border-radius: 10px; border: 1px solid var(--zyron); background: var(--zyron); color: var(--ink); font-size: 14px; font-weight: 800; text-align: center; transition: box-shadow 0.2s, background 0.2s; }
+  .card:hover .btn { background: var(--zyron-soft); box-shadow: 0 0 20px rgba(255, 212, 0, 0.55); }
+  .btn.soon { background: transparent; color: var(--zyron); border-color: rgba(255, 212, 0, 0.45); }
+  .card:hover .btn.soon { background: rgba(255, 212, 0, 0.12); }
+
+  /* créditos: para cambiar la skin, sustituye public/assets/fr4ncebalbo-skin.png */
+  .credit { margin: 40px auto 0; display: flex; align-items: center; gap: 14px; padding: 10px 20px 10px 12px; border-radius: 14px; border: 1px solid var(--edge); background: rgba(255, 212, 0, 0.05); }
+  .skin { width: 52px; height: 92px; flex: none; display: block; object-fit: contain; filter: drop-shadow(0 0 8px rgba(255, 212, 0, 0.4)); }
+  .credit p { margin: 0; font-size: 15px; font-weight: 800; color: var(--zyron); letter-spacing: 0.3px; }
+
+  @media (max-width: 520px) { .wrap { padding-top: 32px; } .icon { font-size: 54px; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <span class="badge"><i></i> Servidor en línea</span>
+      <h1>The Zyron Hub</h1>
+      <p class="sub">Elige tu aventura</p>
+    </header>
+
+    <section class="grid" aria-label="Juegos">
+      <a class="card" href="/miles-de-piratas/">
+        <div class="art pirate"><div class="sun"></div><div class="sea"></div><span class="icon" aria-hidden="true">⛵</span></div>
+        <div class="body">
+          <div class="tags"><span class="tag">● Online</span><span class="tag">Multijugador</span></div>
+          <h2 class="pirate-name">MilesDePiratas</h2>
+          <p class="desc">Tu juego multijugador: navega, forma tu tripulación, encuentra Frutas del Diablo y conviértete en el Rey de los Piratas.</p>
+          <span class="btn">▶ Jugar</span>
+        </div>
+      </a>
+
+      <a class="card" href="/juego-2/">
+        <div class="art"><span class="icon" aria-hidden="true">🚀</span></div>
+        <div class="body">
+          <div class="tags"><span class="tag">Próximamente</span></div>
+          <h2>Juego 2</h2>
+          <p class="desc">Un nuevo juego está en camino. ¡Muy pronto podrás jugarlo aquí!</p>
+          <span class="btn soon">Ver más →</span>
+        </div>
+      </a>
+
+      <a class="card" href="/juego-3/">
+        <div class="art"><span class="icon" aria-hidden="true">🐉</span></div>
+        <div class="body">
+          <div class="tags"><span class="tag">Próximamente</span></div>
+          <h2>Juego 3</h2>
+          <p class="desc">Un nuevo juego está en camino. ¡Muy pronto podrás jugarlo aquí!</p>
+          <span class="btn soon">Ver más →</span>
+        </div>
+      </a>
+
+      <a class="card" href="/juego-4/">
+        <div class="art"><span class="icon" aria-hidden="true">👾</span></div>
+        <div class="body">
+          <div class="tags"><span class="tag">Próximamente</span></div>
+          <h2>Juego 4</h2>
+          <p class="desc">Un nuevo juego está en camino. ¡Muy pronto podrás jugarlo aquí!</p>
+          <span class="btn soon">Ver más →</span>
+        </div>
+      </a>
+    </section>
+
+    <footer class="credit">
+      <img class="skin" src="/assets/fr4ncebalbo-skin.png" alt="Skin de Minecraft de Fr4ncebalbo" width="52" height="92" loading="lazy">
+      <p>Created By Fr4ncebalbo</p>
+    </footer>
+  </main>
+</body>
+</html>
