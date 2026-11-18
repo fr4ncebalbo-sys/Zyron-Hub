@@ -1,0 +1,17 @@
+MÚSICA Y SONIDOS PROPIOS (opcional)
+
+El juego ya trae música y efectos sintetizados (no necesita ningún archivo). Si quieres usar los tuyos,
+pon aquí archivos .mp3, .ogg, .wav o .m4a con estos nombres y recarga la página:
+
+  musica.mp3          música de fondo (se repite en bucle)
+  golpe.mp3           golpe normal en combate
+  critico.mp3         golpe crítico
+  tecnica.mp3         técnica de una Fruta del Diablo (tecla Q)
+  puerta.mp3          entrar / salir de un edificio
+  nivel.mp3           subir de nivel
+  transformacion.mp3  transformación Zoan (tecla C)
+  dialogo.mp3         hablar con un personaje
+  moneda.mp3          ganar dinero
+
+Los que no pongas siguen sonando con su versión sintetizada. El volumen se regula con el botón 🔊.
+Usa solo música y sonidos que tengas derecho a usar (propios, libres o con licencia).

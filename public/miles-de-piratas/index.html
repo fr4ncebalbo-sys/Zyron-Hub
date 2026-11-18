@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MilesDePiratas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Pirata+One&family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a id="portal-back" href="/" title="Volver al Portal de juegos">←<span> Volver al Portal</span></a>
+  <div id="game" class="hidden">
+    <canvas id="map" aria-label="Mapa del mundo"></canvas>
+    <header id="topbar"></header>
+    <aside id="side">
+      <button id="side-toggle" title="Ocultar o mostrar la tarjeta">⇤</button>
+      <div id="side-body"></div>
+    </aside>
+    <section id="news">
+      <div class="news-head">
+        <div class="news-tabs"><button data-ntab="news" class="on">📰 Noticias</button><button data-ntab="chat">💬 Chat <i id="chat-dot" class="hidden"></i></button></div>
+        <div id="news-filters"></div>
+        <button id="news-toggle" title="Plegar">▾</button>
+      </div>
+      <ul id="news-list"></ul>
+      <ul id="chat-log" class="hidden"></ul>
+      <form id="chat-form" class="hidden" autocomplete="off"><input id="chat-input" maxlength="200" placeholder="Enter para escribir · /w Nombre msg · /c msg"></form>
+    </section>
+    <canvas id="minimap" width="230" height="130" title="Toca para mirar esa zona"></canvas>
+    <div id="hint" class="hidden"></div>
+    <div id="toasts"></div>
+    <div id="tooltip" class="hidden"></div>
+    <div id="dead" class="hidden"><b>💀 Has caído</b><span>Despertarás en el puerto más cercano...</span></div>
+    <div id="net" class="hidden">Reconectando con el servidor...</div>
+  </div>
+  <div id="start" class="hidden"></div>
+  <div id="modal" class="modal hidden"></div>
+  <noscript>Este juego necesita JavaScript activado.</noscript>
+
+  <script src="/vendor/colyseus.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/mmo-rules.js"></script>
+  <script src="js/interiors.js"></script>
+  <script src="js/sprites.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/decor.js"></script>
+  <script src="js/net.js"></script>
+  <script src="js/mmo-ui.js"></script>
+  <script src="js/mmo-main.js"></script>
+  <script src="js/mmo-exec.js"></script>
+  <script src="js/mmo-haki.js"></script>
+  <script src="js/mmo-interior.js"></script>
+  <script src="js/mmo-audio.js"></script>
+</body>
+</html>

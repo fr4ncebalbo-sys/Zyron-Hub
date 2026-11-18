@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portal de Juegos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Orbitron:wght@600;800&family=Pirata+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07080d; --bg2: #0d1018; --card: #121623; --edge: rgba(255, 255, 255, 0.08); --text: #e9edf6; --muted: #8c95ab;
+    --c1: #ffb347; --c2: #4de1ff; --c3: #b26bff; --c4: #3dff9a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; }
+  body {
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(77, 225, 255, 0.10), transparent 60%),
+      radial-gradient(900px 500px at 110% 10%, rgba(178, 107, 255, 0.12), transparent 60%),
+      radial-gradient(800px 600px at 50% 120%, rgba(255, 179, 71, 0.08), transparent 60%),
+      var(--bg);
+  }
+  /* rejilla de fondo estilo arcade */
+  body::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.35;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 44px 44px; mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+  }
+  .wrap { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 40px 16px 56px; }
+  header { text-align: center; margin-bottom: 36px; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--edge); background: rgba(255, 255, 255, 0.03); color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+  .badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--c4); box-shadow: 0 0 10px var(--c4); animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: 0.35; } }
+  h1 { font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: clamp(32px, 6vw, 64px); letter-spacing: 3px; margin: 16px 0 8px; line-height: 1.05;
+    background: linear-gradient(90deg, var(--c2), #ffffff 45%, var(--c3)); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 0 40px rgba(77, 225, 255, 0.18); }
+  .sub { color: var(--muted); font-size: 16px; margin: 0; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  @media (max-width: 1060px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    --c: var(--c2);
+    position: relative; display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; background: var(--card); border: 1px solid var(--edge);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; text-decoration: none; color: inherit; isolation: isolate;
+  }
+  .card::after { /* borde que brilla al pasar el ratón */
+    content: ''; position: absolute; inset: -1px; border-radius: 18px; padding: 1px; z-index: -1; opacity: 0; transition: opacity 0.25s;
+    background: conic-gradient(from var(--a, 0deg), transparent 0 60%, var(--c), transparent 85%); animation: spin 3.5s linear infinite;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  }
+  @property --a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+  @keyframes spin { to { --a: 360deg; } }
+  .card:hover, .card:focus-visible { transform: translateY(-6px); border-color: transparent; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55), 0 0 36px color-mix(in srgb, var(--c) 40%, transparent); outline: none; }
+  .card:hover::after, .card:focus-visible::after { opacity: 1; }
+  .card.c1 { --c: var(--c1); } .card.c2 { --c: var(--c2); } .card.c3 { --c: var(--c3); } .card.c4 { --c: var(--c4); }
+  .art { position: relative; aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center; overflow: hidden;
+    background: radial-gradient(circle at 50% 120%, color-mix(in srgb, var(--c) 45%, transparent), transparent 65%), linear-gradient(160deg, #161b2b, #0b0e17); }
+  .art .icon { font-size: 64px; filter: drop-shadow(0 0 18px color-mix(in srgb, var(--c) 70%, transparent)); transition: transform 0.35s ease; }
+  .card:hover .art .icon { transform: scale(1.12) rotate(-4deg); }
+  .art .scan { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 2px, transparent 2px 4px); pointer-events: none; }
+  /* MilesDePiratas: mar, sol y barco */
+  .art.pirate { background: linear-gradient(180deg, #ff9a4a 0%, #ff6a5a 28%, #3a2a6a 58%, #0a1a3a 100%); }
+  .art.pirate .sun { position: absolute; width: 90px; height: 90px; border-radius: 50%; background: radial-gradient(circle, #ffe9a8, #ffb347 60%, transparent 70%); top: 22%; left: 50%; transform: translateX(-50%); }
+  .art.pirate .sea { position: absolute; left: 0; right: 0; bottom: 0; height: 38%; background: linear-gradient(180deg, #1a4a8a, #0a1f3f); }
+  .art.pirate .sea::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0 18px, transparent 18px 46px); height: 3px; top: 10px; animation: waves 3s linear infinite; }
+  @keyframes waves { to { background-position: 46px 0; } }
+  .art.pirate .icon { position: relative; font-size: 70px; margin-top: 10px; animation: bob 3s ease-in-out infinite; }
+  @keyframes bob { 50% { transform: translateY(-6px) rotate(2deg); } }
+  .card:hover .art.pirate .icon { animation-duration: 1.4s; }
+  .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { font-size: 11px; font-weight: 800; letter-spacing: 0.6px; padding: 3px 8px; border-radius: 6px; background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c); border: 1px solid color-mix(in srgb, var(--c) 35%, transparent); text-transform: uppercase; }
+  .tag.live::before { content: '● '; }
+  h2 { margin: 2px 0 0; font-size: 22px; font-weight: 800; }
+  .card.c1 h2 { font-family: 'Pirata One', Georgia, serif; font-size: 30px; font-weight: 400; letter-spacing: 1px; }
+  .desc { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0; flex: 1; }
+  .btn { margin-top: 6px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 14px; border-radius: 12px; font-weight: 800; font-size: 14px;
+    color: #0b0d14; background: var(--c); box-shadow: 0 0 0 0 transparent; transition: box-shadow 0.2s, filter 0.2s; }
+  .card:hover .btn { box-shadow: 0 0 22px color-mix(in srgb, var(--c) 70%, transparent); filter: brightness(1.08); }
+  .btn.soon { background: transparent; color: var(--c); border: 1px solid color-mix(in srgb, var(--c) 50%, transparent); }
+  footer { margin-top: 40px; text-align: center; color: var(--muted); font-size: 12px; }
+  @media (max-width: 520px) { .wrap { padding-top: 28px; } .art .icon { font-size: 54px; } }
+  @media (prefers-reduced-motion: reduce) { *, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <span class="badge"><i></i> Servidor en línea</span>
+      <h1>PORTAL DE JUEGOS</h1>
+      <p class="sub">Elige tu aventura</p>
+    </header>
+
+    <section class="grid" aria-label="Juegos">
+      <a class="card c1" href="/miles-de-piratas/">
+        <div class="art pirate"><div class="sun"></div><div class="sea"></div><span class="icon" aria-hidden="true">⛵</span><div class="scan"></div></div>
+        <div class="body">
+          <div class="tags"><span class="tag live">Online</span><span class="tag">Multijugador</span></div>
+          <h2>MilesDePiratas</h2>
+          <p class="desc">Tu juego multijugador: navega, forma tu tripulación, encuentra Frutas del Diablo y conviértete en el Rey de los Piratas.</p>
+          <span class="btn">▶ Jugar</span>
+        </div>
+      </a>
+
+      <a class="card c2" href="/juego-2/">
+        <div class="art"><span class="icon" aria-hidden="true">🚀</span><div class="scan"></div></div>
+        <div class="body">
+          <div class="tags"><span class="tag">Próximamente</span></div>
+          <h2>Juego 2</h2>
+          <p class="desc">Un nuevo juego está en camino. ¡Muy pronto podrás jugarlo aquí!</p>
+          <span class="btn soon">Ver más →</span>
+        </div>
+      </a>
+
+      <a class="card c3" href="/juego-3/">
+        <div class="art"><span class="icon" aria-hidden="true">🐉</span><div class="scan"></div></div>
+        <div class="body">
+          <div class="tags"><span class="tag">Próximamente</span></div>
+          <h2>Juego 3</h2>
+          <p class="desc">Un nuevo juego está en camino. ¡Muy pronto podrás jugarlo aquí!</p>
+          <span class="btn soon">Ver más →</span>
+        </div>
+      </a>
+
+      <a class="card c4" href="/juego-4/">
+        <div class="art"><span class="icon" aria-hidden="true">👾</span><div class="scan"></div></div>
+        <div class="body">
+          <div class="tags"><span class="tag">Próximamente</span></div>
+          <h2>Juego 4</h2>
+          <p class="desc">Un nuevo juego está en camino. ¡Muy pronto podrás jugarlo aquí!</p>
+          <span class="btn soon">Ver más →</span>
+        </div>
+      </a>
+    </section>
+
+    <footer>© Portal de Juegos · Hecho con HTML, JavaScript y Node.js</footer>
+  </main>
+</body>
+</html>

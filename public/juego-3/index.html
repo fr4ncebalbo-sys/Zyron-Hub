@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Juego 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Orbitron:wght@800&display=swap" rel="stylesheet">
+<style>
+  :root { --c: #b26bff; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 16px; font-family: 'Inter', system-ui, sans-serif; color: #e9edf6;
+    background: radial-gradient(700px 400px at 50% 30%, color-mix(in srgb, var(--c) 18%, transparent), transparent 70%), #07080d; }
+  .box { text-align: center; max-width: 520px; width: 100%; padding: 36px 24px; border-radius: 20px; background: #121623; border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5), 0 0 40px color-mix(in srgb, var(--c) 22%, transparent); }
+  .icon { font-size: 72px; filter: drop-shadow(0 0 20px color-mix(in srgb, var(--c) 70%, transparent)); animation: bob 3s ease-in-out infinite; }
+  @keyframes bob { 50% { transform: translateY(-8px); } }
+  h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(28px, 7vw, 44px); margin: 12px 0 6px; letter-spacing: 2px; color: var(--c); text-shadow: 0 0 24px color-mix(in srgb, var(--c) 50%, transparent); }
+  .soon { display: inline-block; margin: 6px 0 18px; padding: 6px 14px; border-radius: 999px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; font-size: 13px;
+    color: var(--c); border: 1px solid color-mix(in srgb, var(--c) 50%, transparent); background: color-mix(in srgb, var(--c) 10%, transparent); }
+  p { color: #8c95ab; margin: 0 0 24px; line-height: 1.5; }
+  a.back { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 12px; font-weight: 800; text-decoration: none; color: #0b0d14; background: var(--c);
+    transition: box-shadow 0.2s, transform 0.2s; }
+  a.back:hover { box-shadow: 0 0 24px color-mix(in srgb, var(--c) 70%, transparent); transform: translateY(-2px); }
+  @media (prefers-reduced-motion: reduce) { .icon { animation: none; } }
+</style>
+</head>
+<body>
+  <main class="box">
+    <div class="icon" aria-hidden="true">🐉</div>
+    <h1>Juego 3</h1>
+    <span class="soon">Próximamente</span>
+    <p>Este juego todavía está en desarrollo. ¡Vuelve pronto!</p>
+    <a class="back" href="/">← Volver al menú principal</a>
+  </main>
+</body>
+</html>
